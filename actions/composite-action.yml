@@ -1,0 +1,13 @@
+name: 'Composite DotNet 2022'
+description: 'Hi Dotnet 2022'
+inputs:
+  who-to-greet:  # id of input
+    description: 'Who to greet'
+    required: true
+    default: 'DotNet 2021'
+runs:
+  using: "composite"
+  steps:
+    - run: echo Hello ${{ inputs.who-to-greet }}.
+      shell: bash
+  
