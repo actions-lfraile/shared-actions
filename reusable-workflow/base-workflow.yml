@@ -1,0 +1,23 @@
+name: Base reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      netcore_version:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+
+jobs:
+  reusable_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v2.1.0
+        with:          
+          dotnet-version: ${{ inputs.netcore_version }}       
+      
+      - run: |
+          echo ${{ secrets.token }}
