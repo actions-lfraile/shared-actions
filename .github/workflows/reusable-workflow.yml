@@ -1,0 +1,44 @@
+name: Reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+      netcore_version:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+    outputs:
+      firstword:
+        description: "The first output string"
+        value: ${{ jobs.reusable_job.outputs.output1 }}
+      secondword:
+        description: "The second output string"
+        value: ${{ jobs.reusable_job.outputs.output2 }}
+        
+jobs:
+  reusable_job:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.step1.outputs.firstword }}
+      output2: ${{ steps.step2.outputs.secondword }}
+    steps:
+      - id: step1
+        run: echo "firstword=hello" >> "$GITHUB_OUTPUT"
+        
+      - id: step2
+        run: echo "secondword=$user" >> "$GITHUB_OUTPUT"
+        env:
+          user: ${{ inputs.username }}
+          
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v2.1.0
+        with:          
+          dotnet-version: ${{ inputs.netcore_version }}       
+      
+      - run: |
+          echo ${{ secrets.token }}
