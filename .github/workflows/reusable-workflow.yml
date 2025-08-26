@@ -42,3 +42,10 @@ jobs:
       
       - run: |
           echo ${{ secrets.token }}
+          
+  secondary_reusable_job:
+    runs-on: ubuntu-latest
+    needs: reusable_job
+    steps:
+      - name: Hello
+        run: echo "Hello"
