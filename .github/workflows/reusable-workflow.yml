@@ -24,7 +24,7 @@ jobs:
   reusable_job:
     permissions: 
       contents: read
-      checks: write
+      checks: read
     runs-on: ubuntu-latest
     outputs:
       output1: ${{ steps.step1.outputs.firstword }}
