@@ -23,7 +23,8 @@ on:
 jobs:
   reusable_job:
     permissions: 
-      contents: write
+      contents: read
+      checks: write
     runs-on: ubuntu-latest
     outputs:
       output1: ${{ steps.step1.outputs.firstword }}
